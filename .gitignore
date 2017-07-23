@@ -1,2 +1,5 @@
 env/
 __pycache__/
+sleephow/__pycache__
+*.png
+
