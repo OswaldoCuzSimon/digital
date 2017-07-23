@@ -6,6 +6,13 @@ from sleephow.sleephow import predict
 URL_DB = 'localhost'
 app = Flask(__name__)
 
+@app.after_request
+def after_request(response):
+  response.headers.add('Access-Control-Allow-Origin', '*')
+  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+  return response
+
 @app.route('/')
 def hello_world():
 	return 'Hello World'
@@ -26,6 +33,7 @@ def save_data_endpoint(sensor):
 
 @app.route('/api/v1/predict/',methods=["POST"])
 def predict_endpoint():
+	print(request.json)
 	try:
 		data = request.json
 		time = data['time']
@@ -37,4 +45,4 @@ def predict_endpoint():
 		data = {"success": False,"error": 200}
 		return jsonify(data), 200
 if __name__ == '__main__':
-	app.run(debug=True)
+	app.run(debug=True,host= '0.0.0.0')
