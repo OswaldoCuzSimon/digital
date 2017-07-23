@@ -3,7 +3,7 @@
 # Copyright (c) Andreas Urbanski, 2017
 import tensorflow as tf
 from datetime import datetime, timedelta
-from build import *
+from .build import *
 
 # Predict sleep time and sleep quality give datetime object
 def predict_sleep_time_and_quality(date):
@@ -12,8 +12,8 @@ def predict_sleep_time_and_quality(date):
     sess = tf.Session()
 
     # Import meta graph and restore model
-    saver = tf.train.import_meta_graph('model/sleepmodel.meta')
-    saver.restore(sess, 'model/sleepmodel')
+    saver = tf.train.import_meta_graph('sleephow/model/sleepmodel.meta')
+    saver.restore(sess, 'sleephow/model/sleepmodel')
 
     # Get default graph
     graph = tf.get_default_graph()
